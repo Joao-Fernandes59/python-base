@@ -2,6 +2,7 @@
 
 import os
 import logging
+from logging import handlers
 
 #-> Configuração do log - BOILERPLATE
 # O usuário pode configurar o level de mensagem que deseja receber
@@ -11,8 +12,13 @@ log_level = os.getenv("LOG_LEVEL", "WARNING").upper()
 # TODO: Depois passar a usar a lib (loguru)
 log = logging.Logger("joao_fernandes", log_level) # setup do nível de log
 # Level / Handler reesponsável para enviar para o console
-ch = logging.StreamHandler()   # Determinar onde mensagem será exibida (Console/Terminal/stderr)
-ch.setLevel(log_level)
+# ch = logging.StreamHandler()   # Determinar onde mensagem será exibida (Console/Terminal/stderr)
+# ch.setLevel(log_level)
+fh = handlers.RotatingFileHandler(
+    "meulog.log", 
+    maxBytes=300, # 10**6 => 1 MB 
+    backupCount=10) 
+fh.setLevel(log_level)
 # Formatação - Definir qual o formato que a mensagem será exibida na tela
 """ONDE:
 %(asctime)s     -> Hora atual do acontecimento do evento
@@ -26,9 +32,12 @@ fmt = logging.Formatter(
     '%(asctime)s %(name)s %(levelname)s '
     'l:%(lineno)d f:%(filename)s: %(message)s'
 )    
-ch.setFormatter(fmt) # insere o objeto de formatação dentro do Handler
+#ch.setFormatter(fmt) # insere o objeto de formatação dentro do Handler
+fh.setFormatter(fmt) # insere o objeto de formatação dentro do Handler
 # Destino
-log.addHandler(ch) # Adiciona o Handler ao log
+#log.addHandler(ch) # Adiciona o Handler ao log
+log.addHandler(fh) # Adiciona o Handler ao log
+
 
 """
 log.debug("Mensagem pro dev, qe, sysadmin")
