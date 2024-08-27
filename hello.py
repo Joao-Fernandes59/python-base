@@ -30,7 +30,7 @@ import logging
 
 #-> Configuração do log - BOILERPLATE
 log_level = os.getenv("LOG_LEVEL", "WARNING").upper()
-log = logging.Logger("joao_fernandes", log_level) 
+log = logging.Logger(os.getenv("USERNAME", 'anonymous'), log_level) 
 ch = logging.StreamHandler() 
 ch.setLevel(log_level)
 fmt = logging.Formatter(
