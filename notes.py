@@ -23,29 +23,44 @@ arguments = sys.argv[1:]
 if not arguments:
     print("Invalid usage")
     print(f"you must specify subcommand {cmds}")
-    print("CLIQUE EM SHELL ACIMA E EXECUTE `python notes.py new teste")
+    print("CLIQUE EM SHELL ACIMA E EXECUTE 'python notes.py new teste'")
     sys.exit(1)
 
 if arguments[0] not in cmds:
-    print(f"Invalid command {arguments[0]}")
+    print(f"Invalid command '{arguments[0]}'")
 
-if arguments[0] == "read":
-    # leitura das notas
-    for line in open(filepath):
-        title, tag, text = line.split("\t")
-        if tag.lower() == arguments[1].lower():
-            print(f"title: {title}")
-            print(f"text: {text}")
-            print("-" * 30)
-            print()
+while True:
 
-if arguments[0] == "new":
-    title = arguments[1] # TODO: Tratar exception
-    text = [
-        f"{title}",
-        input("tag:").strip(),
-        input("text:\n").strip(),
-    ]
-    # \t - tsv
-    with open(filepath, "a") as file_:
-        file_.write("\t".join(text) + "\n")
+    if arguments[0] == "read":
+        try:
+            arguments[1].lower()
+        except IndexError:
+            arg_tag = input("Qual é a tag: ").strip().lower()
+
+        # leitura das notas
+        for line in open(filepath):
+            title, tag, text = line.split("\t")
+            if tag.lower() == arg_tag:
+                print(f"title: {title}")
+                print(f"text: {text}")
+                print("-" * 30)
+                print()
+
+    if arguments[0] == "new":
+        try:
+            title = arguments[1]
+        except IndexError:
+            title = input("Qual é o título: ").strip().title()
+
+        text = [
+            f"{title}",
+            input("tag:").strip(),
+            input("text:\n").strip(),
+        ]
+        # \t - tsv
+        with open(filepath, "a") as file_:
+            file_.write("\t".join(text) + "\n")
+    cont = input(f"Quer continuar {arguments[0]} notas? [N/y]: ").strip().lower()
+    if cont != "y":
+        break
+

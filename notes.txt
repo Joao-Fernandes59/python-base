@@ -1,3 +1,13 @@
 Minha Primeira Nota	geral	Minha primeira nota!
 Minha Segunda Nota	tech	Python é muito legal!
 Minha terceira Nota	tech	COBOL é eterno...
+Minha terceira Nota	tech	Golang
+Repetições	Python	Whie e For para repetir
+Post 1	geral	Qualquer coisa
+Foobar	foo	fofo fofofofof
+Fgfg	gfgf	gfgfg
+Meu Post	geral	Hello
+Meu Post	geral	hello
+Estou Com Fome	comida	Batata
+Mais Fome Ainda	comida	arroz
+Exercíco De Python	Loop	execuções de for e while
